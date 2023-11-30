@@ -1,4 +1,20 @@
 ﻿@page "/contacts/create"
+@code {
+	[SupplyParameterFromForm]
+	public Contact Form { get; set; } = new();
+	[Inject]
+	public NavigationManager Nav { get; set; }
+	[CascadingParameter]
+	public HttpContext Context { get; set; }
+
+	public void CreateContact()
+	{
+		Form.Id = Database.Contacts.Count() + 1;
+		Database.Contacts.Add(Form);
+		Context.SetFlash("success", "Contact created");
+		Nav.NavigateTo("/contacts/create");
+	}
+}
 
 <PageTitle>Add contacts</PageTitle>
 
@@ -12,6 +28,7 @@
 <FlashMessages />
 
 <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
+	<h2 class="text-lg font-semibold pt-8 pl-8">Create Contact</h2>
 	<EditForm method="post" Model="Form" OnValidSubmit="CreateContact" FormName="test" Enhance>
 		<DataAnnotationsValidator />
 		<div class="flex flex-wrap -mb-8 -mr-6 p-8">
@@ -43,20 +60,3 @@
 		</div>
 	</EditForm>
 </div>
-
-@code {
-	[SupplyParameterFromForm]
-	public Contact Form { get; set; } = new();
-	[Inject]
-	public NavigationManager Nav { get; set; }
-	[CascadingParameter]
-	public HttpContext Context { get; set; }
-
-	public void CreateContact()
-	{
-		Form.Id = Database.Contacts.Count() + 1;
-		Database.Contacts.Add(Form);
-		Context.SetFlash("success", "Contact created");
-		Nav.NavigateTo("/contacts/create");
-	}
-}

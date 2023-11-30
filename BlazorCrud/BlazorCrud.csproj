@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Pages\Home\Index.razor.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Home\Index.razor.js" />
+  </ItemGroup>
+
 </Project>
