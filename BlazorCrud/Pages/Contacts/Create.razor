@@ -1,0 +1,62 @@
+﻿@page "/contacts/create"
+
+<PageTitle>Add contacts</PageTitle>
+
+<h1 class="mb-8 text-3xl font-bold">
+	<a preload class="text-blue-500 hover:text-blue-600" href="/contacts">
+		Contacts
+	</a>
+	<span class="text-blue-500 font-medium">/</span>
+	Create
+</h1>
+<FlashMessages />
+
+<div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
+	<EditForm method="post" Model="Form" OnValidSubmit="CreateContact" FormName="test" Enhance>
+		<DataAnnotationsValidator />
+		<div class="flex flex-wrap -mb-8 -mr-6 p-8">
+			<div class="pb-8 pr-6 w-full lg:w-1/2 space-y-2">
+				<label for="name">Title</label>
+				<InputText id="name" @bind-Value="Form.Name" class="relative px-6 py-3 w-full rounded border-gray-300" />
+				<ValidationMessage For="() => Form.Name" />
+			</div>
+			<div class="pb-8 pr-6 w-full lg:w-1/2 space-y-2">
+				<label for="email">Email</label>
+				<InputText type="email" id="email" @bind-Value="Form.Email" class="relative px-6 py-3 w-full rounded border-gray-300" />
+				<ValidationMessage For="() => Form.Email" />
+			</div>
+			<div class="pb-8 pr-6 w-full lg:w-1/2 space-y-2">
+				<label for="city">City</label>
+				<InputText id="city" @bind-Value="Form.City" class="relative px-6 py-3 w-full rounded border-gray-300" />
+				<ValidationMessage For="() => Form.City" />
+			</div>
+			<div class="pb-8 pr-6 w-full lg:w-1/2 space-y-2">
+				<label for="phone">Phone</label>
+				<InputText id="phone" @bind-Value="Form.Phone" class="relative px-6 py-3 w-full rounded border-gray-300" />
+				<ValidationMessage For="() => Form.Phone" />
+			</div>
+		</div>
+		<div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
+			<button class="px-4 py-2 font-medium rounded bg-blue-500 hover:bg-blue-600 text-white transition" type="submit">
+				Save
+			</button>
+		</div>
+	</EditForm>
+</div>
+
+@code {
+	[SupplyParameterFromForm]
+	public Contact Form { get; set; } = new();
+	[Inject]
+	public NavigationManager Nav { get; set; }
+	[CascadingParameter]
+	public HttpContext Context { get; set; }
+
+	public void CreateContact()
+	{
+		Form.Id = Database.Contacts.Count() + 1;
+		Database.Contacts.Add(Form);
+		Context.SetFlash("success", "Contact created");
+		Nav.NavigateTo("/contacts/create");
+	}
+}
