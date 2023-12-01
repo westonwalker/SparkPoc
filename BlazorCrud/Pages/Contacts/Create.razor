@@ -1,25 +1,9 @@
 ﻿@page "/contacts/create"
-@code {
-	[SupplyParameterFromForm]
-	public Contact Form { get; set; } = new();
-	[Inject]
-	public NavigationManager Nav { get; set; }
-	[CascadingParameter]
-	public HttpContext Context { get; set; }
-
-	public void CreateContact()
-	{
-		Form.Id = Database.Contacts.Count() + 1;
-		Database.Contacts.Add(Form);
-		Context.SetFlash("success", "Contact created");
-		Nav.NavigateTo("/contacts/create");
-	}
-}
 
 <PageTitle>Add contacts</PageTitle>
 
 <h1 class="mb-8 text-3xl font-bold">
-	<a preload class="text-blue-500 hover:text-blue-600" href="/contacts">
+	<a href="/contacts" class="text-blue-500 hover:text-blue-600">
 		Contacts
 	</a>
 	<span class="text-blue-500 font-medium">/</span>
@@ -60,3 +44,20 @@
 		</div>
 	</EditForm>
 </div>
+
+@code {
+	[SupplyParameterFromForm]
+	public Contact Form { get; set; } = new();
+	[Inject]
+	public NavigationManager Nav { get; set; }
+	[CascadingParameter]
+	public HttpContext Context { get; set; }
+
+	public void CreateContact()
+	{
+		Form.Id = Database.Contacts.Count() + 1;
+		Database.Contacts.Add(Form);
+		Context.SetFlash("success", "Contact created");
+		Nav.NavigateTo("/contacts/create");
+	}
+}
