@@ -1,0 +1,19 @@
+﻿@page "/admin"
+@attribute [Authorize(Roles = ApplicationRoles.Admin)]
+
+<PageTitle>Admin Dashboard</PageTitle>
+
+<section>
+	<article class="prose max-w-none">
+		<div class="card bg-base-100 shadow-xl">
+			<div class="card-body">
+				<h1>
+					Admin Dashboard
+				</h1>
+				<p>
+					Only users with the admin role can access this page.
+				</p>
+			</div>
+		</div>
+	</article>
+</section>
