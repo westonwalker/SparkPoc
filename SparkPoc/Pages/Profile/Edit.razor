@@ -120,32 +120,33 @@
 			<div class="card bg-base-100 shadow-xl">
 				<div class="card-body">
 					<h2 class="mt-0">Profile Info</h2>
-		            <EditForm Model="ProfileInfoForm" OnValidSubmit="SaveProfileInformation" FormName="ProfileInfoForm" Enhance method="post" class="max-w-2xl grid grid-cols-1 gap-y-6">
-			            <DataAnnotationsValidator />
-						<label class="form-control w-full">
-							<div class="label">
-								<span class="label-text font-medium">Name</span>
-							</div>
-							<InputText @bind-Value="ProfileInfoForm.Name" class="input input-bordered w-full" />
-							<ValidationMessage For="() => ProfileInfoForm.Name" />
-			            </label>
-			            <label class="form-control w-full">
-				            <div class="label">
-					            <span class="label-text font-medium">Email address</span>
-				            </div>
-				            <InputText @bind-Value="ProfileInfoForm.Email" type="email" class="input input-bordered w-full" />
-				            <ValidationMessage For="() => ProfileInfoForm.Email" />
-				            @if (!String.IsNullOrEmpty(profileFormMessage))
-				            {
-					            <div class="mt-1 text-red-500 text-sm">
-						            @profileFormMessage
-					            </div>
-				            }
-			            </label>
-			            <div class="flex justify-end">
-				            <button type="submit" class="btn btn-neutral">Save</button>
-			            </div>
-		            </EditForm>
+					<UpdateProfileForm />
+		    @*         <EditForm Model="ProfileInfoForm" OnValidSubmit="SaveProfileInformation" FormName="ProfileInfoForm" Enhance method="post" class="max-w-2xl grid grid-cols-1 gap-y-6"> *@
+			   @*          <DataAnnotationsValidator /> *@
+						@* <label class="form-control w-full"> *@
+						@* 	<div class="label"> *@
+						@* 		<span class="label-text font-medium">Name</span> *@
+						@* 	</div> *@
+						@* 	<InputText @bind-Value="ProfileInfoForm.Name" class="input input-bordered w-full" /> *@
+						@* 	<ValidationMessage For="() => ProfileInfoForm.Name" /> *@
+			   @*          </label> *@
+			   @*          <label class="form-control w-full"> *@
+				  @*           <div class="label"> *@
+					 @*            <span class="label-text font-medium">Email address</span> *@
+				  @*           </div> *@
+				  @*           <InputText @bind-Value="ProfileInfoForm.Email" type="email" class="input input-bordered w-full" /> *@
+				  @*           <ValidationMessage For="() => ProfileInfoForm.Email" /> *@
+				  @*           @if (!String.IsNullOrEmpty(profileFormMessage)) *@
+				  @*           { *@
+					 @*            <div class="mt-1 text-red-500 text-sm"> *@
+						@*             @profileFormMessage *@
+					 @*            </div> *@
+				  @*           } *@
+			   @*          </label> *@
+			   @*          <div class="flex justify-end"> *@
+				  @*           <button type="submit" class="btn btn-neutral">Save</button> *@
+			   @*          </div> *@
+		    @*         </EditForm> *@
 				</div>
 			</div>
 			<div class="card bg-base-100 shadow-xl">
