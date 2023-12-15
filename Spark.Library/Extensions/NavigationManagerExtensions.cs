@@ -15,7 +15,7 @@ namespace Spark.Library.Extensions
             return navManager.ToBaseRelativePath(navManager.Uri);
         }
         
-        public static void HtmxNavigateTo(this NavigationManager navManager, HttpContext context, string url)
+        public static void XNavigateTo(this NavigationManager navManager, HttpContext context, string url)
         {
             context.Response.Headers.Append("HX-Location", url);
         }

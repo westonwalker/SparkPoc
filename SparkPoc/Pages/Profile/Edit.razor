@@ -1,112 +1,5 @@
 ﻿@page "/profile/edit"
 @attribute [Authorize]
-@code {
-	[CascadingParameter] public HttpContext HttpContext { get; set; } = default!;
-
-    [SupplyParameterFromForm(FormName = "ProfileInfoForm")]
-    public ProfileInfo? ProfileInfoForm { get; set; }
-    private string profileFormMessage = "";
-
-    [SupplyParameterFromForm(FormName = "PasswordForm")]
-    public ProfilePassword? PasswordForm { get; set; }
-    private string passwordFormMessage = "";
-
-    [Inject] DatabaseContext Db { get; set; } = default!;
-    [Inject] NavigationManager NavManager { get; set; } = default!;
-    [Inject] UsersService UsersService { get; set; } = default!;
-    [Inject] AuthService AuthService { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        ProfileInfoForm ??= await SetupInfoForm();
-        PasswordForm ??= new();
-    }
-
-    private async Task<ProfileInfo> SetupInfoForm()
-    {
-	    var currentUser = await AuthService.GetAuthenticatedUser(HttpContext.User);
-	    ProfileInfo info = new()
-	    {
-		    Name = currentUser.Name,
-		    Email = currentUser.Email
-	    };
-	    return info;
-    }
-
-    private async Task SaveProfileInformation()
-    {
-        var currentUser = await AuthService.GetAuthenticatedUser(HttpContext.User);
-
-        // Verify another user isn't using the new email address
-        var existingUser = await UsersService.FindUserByEmailAsync(ProfileInfoForm.Email);
-        if (existingUser != null && currentUser.Id != existingUser.Id)
-        {
-            profileFormMessage = "Email already in use.";
-            return;
-        }
-		// update user info
-        currentUser.Email = ProfileInfoForm.Email;
-        currentUser.Name = ProfileInfoForm.Name;
-        Db.Users.Save(currentUser);
-        
-        // re-login user so cookie info reflects updated values
-        var cookieClaims = await AuthService.CreateCookieClaims(currentUser);
-        await HttpContext.SignInAsync(
-            CookieAuthenticationDefaults.AuthenticationScheme,
-            cookieClaims,
-            new AuthenticationProperties
-            {
-	            IsPersistent = true,
-	            IssuedUtc = DateTimeOffset.UtcNow,
-	            ExpiresUtc = DateTimeOffset.UtcNow.AddDays(5)
-            }
-        );
-        NavManager.NavigateTo("profile/edit", true);
-    }
-
-    private async Task UpdatePassword()
-    {
-	    var currentUser = await AuthService.GetAuthenticatedUser(HttpContext.User);
-
-	    if (currentUser != null)
-	    {
-		    var existingUser = await UsersService.FindUserAsync(currentUser.Email, UsersService.GetSha256Hash(PasswordForm.CurrentPassword));
-		    if (existingUser == null)
-		    {
-			    passwordFormMessage = "Current password was incorrect.";
-			    return;
-		    }
-
-		    existingUser.Password = UsersService.GetSha256Hash(PasswordForm.NewPassword);
-		    Db.Users.Save(existingUser);
-		    NavManager.NavigateTo("profile/edit", true);
-	    }
-    }
-
-    public class ProfileInfo
-    {
-        [Required]
-        public string Name { get; set; } = default!;
-
-        [EmailAddress(ErrorMessage = "Invalid email address.")]
-        [Required(ErrorMessage = "Please enter a valid email address")]
-        public string Email { get; set; } = default!;
-    }
-
-    public class ProfilePassword
-    {
-        [Required(ErrorMessage = "Current Password is required")]
-        public string CurrentPassword { get; set; } = default!;
-
-        [Required(ErrorMessage = "New Password is required")]
-        public string NewPassword { get; set; } = default!;
-
-        [Required(ErrorMessage = "Confirm password is required")]
-        [Compare("NewPassword", ErrorMessage = "The New Password and Confirm Password do not match.")]
-        public string ConfirmPassword { get; set; } = default!;
-    }
-}
-
 
 <PageTitle>Edit Profile</PageTitle>
 
@@ -121,70 +14,12 @@
 				<div class="card-body">
 					<h2 class="mt-0">Profile Info</h2>
 					<UpdateProfileForm />
-		    @*         <EditForm Model="ProfileInfoForm" OnValidSubmit="SaveProfileInformation" FormName="ProfileInfoForm" Enhance method="post" class="max-w-2xl grid grid-cols-1 gap-y-6"> *@
-			   @*          <DataAnnotationsValidator /> *@
-						@* <label class="form-control w-full"> *@
-						@* 	<div class="label"> *@
-						@* 		<span class="label-text font-medium">Name</span> *@
-						@* 	</div> *@
-						@* 	<InputText @bind-Value="ProfileInfoForm.Name" class="input input-bordered w-full" /> *@
-						@* 	<ValidationMessage For="() => ProfileInfoForm.Name" /> *@
-			   @*          </label> *@
-			   @*          <label class="form-control w-full"> *@
-				  @*           <div class="label"> *@
-					 @*            <span class="label-text font-medium">Email address</span> *@
-				  @*           </div> *@
-				  @*           <InputText @bind-Value="ProfileInfoForm.Email" type="email" class="input input-bordered w-full" /> *@
-				  @*           <ValidationMessage For="() => ProfileInfoForm.Email" /> *@
-				  @*           @if (!String.IsNullOrEmpty(profileFormMessage)) *@
-				  @*           { *@
-					 @*            <div class="mt-1 text-red-500 text-sm"> *@
-						@*             @profileFormMessage *@
-					 @*            </div> *@
-				  @*           } *@
-			   @*          </label> *@
-			   @*          <div class="flex justify-end"> *@
-				  @*           <button type="submit" class="btn btn-neutral">Save</button> *@
-			   @*          </div> *@
-		    @*         </EditForm> *@
 				</div>
 			</div>
 			<div class="card bg-base-100 shadow-xl">
 				<div class="card-body">
 					<h2 class="mt-0">Update Password</h2>
-		            <EditForm Model="PasswordForm" OnValidSubmit="UpdatePassword" FormName="PasswordForm" Enhance method="post" class="max-w-2xl grid grid-cols-1 gap-y-6">
-			            <DataAnnotationsValidator />
-						<label class="form-control w-full">
-							<div class="label">
-								<span class="label-text font-medium">Current Password</span>
-							</div>
-							<InputText @bind-Value="PasswordForm.CurrentPassword" type="password" class="input input-bordered w-full" />
-							<ValidationMessage For="() => PasswordForm.CurrentPassword" />
-		                    @if (!String.IsNullOrEmpty(passwordFormMessage))
-		                    {
-		                        <div class="mt-1 text-red-500 text-sm">
-		                            @passwordFormMessage
-		                        </div>
-		                    }
-			            </label>
-						<label class="form-control w-full">
-							<div class="label">
-								<span class="label-text font-medium">New Password</span>
-							</div>
-							<InputText @bind-Value="PasswordForm.NewPassword" type="password" class="input input-bordered w-full" />
-							<ValidationMessage For="() => PasswordForm.NewPassword" />
-			            </label>
-						<label class="form-control w-full">
-							<div class="label">
-								<span class="label-text font-medium">Confirm Password</span>
-							</div>
-							<InputText @bind-Value="PasswordForm.ConfirmPassword" type="password" class="input input-bordered w-full" />
-							<ValidationMessage For="() => PasswordForm.ConfirmPassword" />
-			            </label>
-			            <div class="flex justify-end">
-				            <button type="submit" class="btn btn-neutral">Save</button>
-			            </div>
-		            </EditForm>
+					<UpdatePasswordForm />
 				</div>
 			</div>
 		</div>

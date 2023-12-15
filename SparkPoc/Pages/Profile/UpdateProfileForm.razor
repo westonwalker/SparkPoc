@@ -5,8 +5,8 @@
 	[CascadingParameter] public HttpContext HttpContext { get; set; } = default!;
 
     [SupplyParameterFromForm]
-    public Form ProfileInfoForm { get; set; }
-    private string profileFormMessage = "";
+    public Form ProfileForm { get; set; }
+    private string customMessage = "";
 
     [Inject] DatabaseContext Db { get; set; } = default!;
     [Inject] NavigationManager NavManager { get; set; } = default!;
@@ -15,10 +15,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ProfileInfoForm ??= await SetupInfoForm();
+        ProfileForm ??= await Setup();
     }
 
-    private async Task<Form> SetupInfoForm()
+    private async Task<Form> Setup()
     {
 	    var currentUser = await AuthService.GetAuthenticatedUser(HttpContext.User);
 	    Form info = new()
@@ -29,20 +29,20 @@
 	    return info;
     }
 
-    private async Task SaveProfileInformation()
+    private async Task OnSubmit()
     {
         var currentUser = await AuthService.GetAuthenticatedUser(HttpContext.User);
 
         // Verify another user isn't using the new email address
-        var existingUser = await UsersService.FindUserByEmailAsync(ProfileInfoForm.Email);
+        var existingUser = await UsersService.FindUserByEmailAsync(ProfileForm.Email);
         if (existingUser != null && currentUser.Id != existingUser.Id)
         {
-            profileFormMessage = "Email already in use.";
+            customMessage = "Email already in use.";
             return;
         }
 		// update user info
-        currentUser.Email = ProfileInfoForm.Email;
-        currentUser.Name = ProfileInfoForm.Name;
+        currentUser.Email = ProfileForm.Email;
+        currentUser.Name = ProfileForm.Name;
         Db.Users.Save(currentUser);
         
         // re-login user so cookie info reflects updated values
@@ -57,7 +57,7 @@
 	            ExpiresUtc = DateTimeOffset.UtcNow.AddDays(5)
             }
         );
-        NavManager.HtmxNavigateTo(HttpContext, "profile/edit");
+        NavManager.XNavigateTo(HttpContext, "profile/edit");
     }
 
     public class Form
@@ -70,31 +70,30 @@
         public string Email { get; set; } = default!;
     }
 }
-<div id="update-profile">
-	<EditForm Model="ProfileInfoForm" OnValidSubmit="SaveProfileInformation" FormName="ProfileInfoForm" hx-post="/profile/edit/profile" hx-target="#update-profile" method="post" class="max-w-2xl grid grid-cols-1 gap-y-6">
-	    <DataAnnotationsValidator />
-		<label class="form-control w-full">
-			<div class="label">
-				<span class="label-text font-medium">Name</span>
-			</div>
-			<InputText @bind-Value="ProfileInfoForm.Name" class="input input-bordered w-full" />
-			<ValidationMessage For="() => ProfileInfoForm.Name" />
-	    </label>
-	    <label class="form-control w-full">
-	        <div class="label">
-	            <span class="label-text font-medium">Email address</span>
-	        </div>
-	        <InputText @bind-Value="ProfileInfoForm.Email" type="email" class="input input-bordered w-full" />
-	        <ValidationMessage For="() => ProfileInfoForm.Email" />
-	        @if (!String.IsNullOrEmpty(profileFormMessage))
-	        {
-	            <div class="mt-1 text-red-500 text-sm">
-		            @profileFormMessage
-	            </div>
-	        }
-	    </label>
-	    <div class="flex justify-end">
-	        <button type="submit" class="btn btn-neutral">Save</button>
-	    </div>
-	</EditForm>
-</div>
+
+<EditForm Model="ProfileForm" OnValidSubmit="OnSubmit" FormName="ProfileInfoForm" hx-post="/profile/edit/profile" hx-swap="outerHTML" method="post" class="max-w-2xl grid grid-cols-1 gap-y-6">
+    <DataAnnotationsValidator />
+	<label class="form-control w-full">
+		<div class="label">
+			<span class="label-text font-medium">Name</span>
+		</div>
+		<InputText @bind-Value="ProfileForm.Name" class="input input-bordered w-full" />
+		<ValidationMessage For="() => ProfileForm.Name" />
+    </label>
+    <label class="form-control w-full">
+        <div class="label">
+            <span class="label-text font-medium">Email address</span>
+        </div>
+        <InputText @bind-Value="ProfileForm.Email" type="email" class="input input-bordered w-full" />
+        <ValidationMessage For="() => ProfileForm.Email" />
+        @if (!String.IsNullOrEmpty(customMessage))
+        {
+            <div class="mt-1 text-red-500 text-sm">
+	            @customMessage
+            </div>
+        }
+    </label>
+    <div class="flex justify-end">
+        <button type="submit" class="btn btn-neutral">Save</button>
+    </div>
+</EditForm>
