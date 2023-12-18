@@ -57,6 +57,7 @@
 	            ExpiresUtc = DateTimeOffset.UtcNow.AddDays(5)
             }
         );
+        HttpContext.SetFlash("success", "Profile info updated.");
         NavManager.XNavigateTo(HttpContext, "profile/edit");
     }
 
@@ -94,6 +95,9 @@
         }
     </label>
     <div class="flex justify-end">
-        <button type="submit" class="btn btn-neutral">Save</button>
+	    <button type="submit" class="btn btn-neutral">
+		    <span class="loading loading-spinner loading-xs htmx-indicator"></span>
+		    Save
+	    </button>
     </div>
 </EditForm>

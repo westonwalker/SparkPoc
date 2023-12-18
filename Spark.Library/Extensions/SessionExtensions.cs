@@ -1,4 +1,6 @@
-﻿namespace SparkPoc.Lib.Extensions;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Spark.Library.Extensions;
 
 public static class SessionExtensions
 {
@@ -12,11 +14,11 @@ public static class SessionExtensions
 		string? message = context.Session.GetString(key);
 		context.Session.Remove(key);
 		return message;
-    }
+	}
 
-    public static bool HasKey(this HttpContext context, string key)
-    {
-        string? message = context.Session.GetString(key);
-        return string.IsNullOrEmpty(message) ? false : true;
-    }
+	public static bool HasKey(this HttpContext context, string key)
+	{
+		string? message = context.Session.GetString(key);
+		return string.IsNullOrEmpty(message) ? false : true;
+	}
 }
