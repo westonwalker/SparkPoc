@@ -1,6 +1,5 @@
 ﻿using SparkPoc.Application.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace SparkPoc.Application.Database;
 

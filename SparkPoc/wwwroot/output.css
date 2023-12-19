@@ -535,107 +535,6 @@ html {
   --bc: 0.278078 0.029596 256.847952;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --in: 0.7206 0.191 231.6;
-    --su: 64.8% 0.150 160;
-    --wa: 0.8471 0.199 83.87;
-    --er: 0.7176 0.221 22.18;
-    --pc: 0.13138 0.0392 275.75;
-    --sc: 0.1496 0.052 342.55;
-    --ac: 0.14902 0.0334 183.61;
-    --inc: 0 0 0;
-    --suc: 0 0 0;
-    --wac: 0 0 0;
-    --erc: 0 0 0;
-    --rounded-box: 1rem;
-    --rounded-btn: 0.5rem;
-    --rounded-badge: 1.9rem;
-    --animation-btn: 0.25s;
-    --animation-input: .2s;
-    --btn-focus-scale: 0.95;
-    --border-btn: 1px;
-    --tab-border: 1px;
-    --tab-radius: 0.5rem;
-    --p: 0.6569 0.196 275.75;
-    --s: 0.748 0.26 342.55;
-    --a: 0.7451 0.167 183.61;
-    --n: 0.313815 0.021108 254.139175;
-    --nc: 0.746477 0.0216 264.435964;
-    --b1: 0.253267 0.015896 252.417568;
-    --b2: 0.232607 0.013807 253.100675;
-    --b3: 0.211484 0.01165 254.087939;
-    --bc: 0.746477 0.0216 264.435964;
-  }
-}
-
-[data-theme=light] {
-  color-scheme: light;
-  --in: 0.7206 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 0.8471 0.199 83.87;
-  --er: 0.7176 0.221 22.18;
-  --pc: 0.89824 0.06192 275.75;
-  --ac: 0.15352 0.0368 183.61;
-  --inc: 0 0 0;
-  --suc: 0 0 0;
-  --wac: 0 0 0;
-  --erc: 0 0 0;
-  --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
-  --p: 0.4912 0.3096 275.75;
-  --s: 0.6971 0.329 342.55;
-  --sc: 0.9871 0.0106 342.55;
-  --a: 0.7676 0.184 183.61;
-  --n: 0.321785 0.02476 255.701624;
-  --nc: 0.894994 0.011585 252.096176;
-  --b1: 1 0 0;
-  --b2: 0.961151 0 0;
-  --b3: 0.924169 0.00108 197.137559;
-  --bc: 0.278078 0.029596 256.847952;
-}
-
-[data-theme=dark] {
-  color-scheme: dark;
-  --in: 0.7206 0.191 231.6;
-  --su: 64.8% 0.150 160;
-  --wa: 0.8471 0.199 83.87;
-  --er: 0.7176 0.221 22.18;
-  --pc: 0.13138 0.0392 275.75;
-  --sc: 0.1496 0.052 342.55;
-  --ac: 0.14902 0.0334 183.61;
-  --inc: 0 0 0;
-  --suc: 0 0 0;
-  --wac: 0 0 0;
-  --erc: 0 0 0;
-  --rounded-box: 1rem;
-  --rounded-btn: 0.5rem;
-  --rounded-badge: 1.9rem;
-  --animation-btn: 0.25s;
-  --animation-input: .2s;
-  --btn-focus-scale: 0.95;
-  --border-btn: 1px;
-  --tab-border: 1px;
-  --tab-radius: 0.5rem;
-  --p: 0.6569 0.196 275.75;
-  --s: 0.748 0.26 342.55;
-  --a: 0.7451 0.167 183.61;
-  --n: 0.313815 0.021108 254.139175;
-  --nc: 0.746477 0.0216 264.435964;
-  --b1: 0.253267 0.015896 252.417568;
-  --b2: 0.232607 0.013807 253.100675;
-  --b3: 0.211484 0.01165 254.087939;
-  --bc: 0.746477 0.0216 264.435964;
-}
-
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -1982,10 +1881,6 @@ html {
   width: 1rem;
 }
 
-.loading-sm {
-  width: 1.25rem;
-}
-
 :where(.menu li:empty) {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
@@ -2328,10 +2223,6 @@ html {
   z-index: 10;
 }
 
-.z-50 {
-  z-index: 50;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -2339,10 +2230,6 @@ html {
 
 .mb-1 {
   margin-bottom: 0.25rem;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
 }
 
 .mb-6 {
@@ -2359,10 +2246,6 @@ html {
 
 .mt-1 {
   margin-top: 0.25rem;
-}
-
-.block {
-  display: block;
 }
 
 .flex {
@@ -2385,16 +2268,8 @@ html {
   height: 1.25rem;
 }
 
-.h-6 {
-  height: 1.5rem;
-}
-
 .min-h-screen {
   min-height: 100vh;
-}
-
-.w-6 {
-  width: 1.5rem;
 }
 
 .w-auto {
@@ -2465,12 +2340,6 @@ html {
   row-gap: 1.5rem;
 }
 
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-
 .space-y-12 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(3rem * calc(1 - var(--tw-space-y-reverse)));
@@ -2496,10 +2365,6 @@ html {
   border-width: 1px;
 }
 
-.border-t {
-  border-top-width: 1px;
-}
-
 .bg-base-100 {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-b1,oklch(var(--b1)/var(--tw-bg-opacity)));
@@ -2508,10 +2373,6 @@ html {
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-.bg-transparent {
-  background-color: transparent;
 }
 
 .bg-white {
@@ -2542,19 +2403,9 @@ html {
   padding-right: 1.5rem;
 }
 
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
 .py-20 {
   padding-top: 5rem;
   padding-bottom: 5rem;
-}
-
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
 }
 
 .text-center {
@@ -2616,11 +2467,6 @@ html {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.drop-shadow-lg {
-  --tw-drop-shadow: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .validation-message {
   margin-top: 0.25rem;
   font-size: 0.875rem;
@@ -2656,16 +2502,6 @@ html {
   content: "An error has occurred."
 }
 
-.hover\:bg-gray-100:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
-
-.hover\:text-black:hover {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 @media (min-width: 640px) {
   .sm\:max-w-md {
     max-width: 28rem;
@@ -2688,10 +2524,6 @@ html {
 }
 
 @media (min-width: 768px) {
-  .md\:hidden {
-    display: none;
-  }
-
   .md\:h-8 {
     height: 2rem;
   }
@@ -2704,11 +2536,5 @@ html {
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .lg\:hidden {
-    display: none;
   }
 }

@@ -1,20 +1,14 @@
 using Spark.Library.Config;
 using Spark.Library.Environment;
+using Spark.Library.Routing;
 using SparkPoc.Application.Startup;
 using SparkPoc.Pages;
 
 EnvManager.LoadConfig();
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.SetupSparkConfig();
-
+builder.Configuration.SetupAppConfig();
 builder.Services.AddAppServices(builder.Configuration);
-builder.Services.AddRazorComponents();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options => {
-    options.Cookie.Name = ".blazorcrud";
-    options.IdleTimeout = TimeSpan.FromMinutes(1);
-});
 
 var app = builder.Build();
 
@@ -33,9 +27,9 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseAntiforgery();
 app.MapRazorComponents<Routes>();
-app.RegisterRoutes();
+app.MapMinimalApis<Program>();
 
-app.Services.RegisterScheduledJobs();
-app.Services.RegisterEvents();
+app.Services.SetupScheduledJobs();
+app.Services.SetupEvents();
 
 app.Run();

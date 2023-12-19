@@ -13,7 +13,7 @@ using Spark.Library.Mail;
 
 namespace SparkPoc.Application.Startup;
 
-public static class AppServiceRegistration
+public static class AppServicesRegistration
 {
     public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration config)
     {
@@ -30,6 +30,12 @@ public static class AppServiceRegistration
         services.AddEventServices();
         services.AddEvents();
         services.AddMailer(config);
+        services.AddRazorComponents();
+        services.AddDistributedMemoryCache();
+        services.AddSession(options => {
+            options.Cookie.Name = ".sparkpoc";
+            options.IdleTimeout = TimeSpan.FromMinutes(1);
+        });
         return services;
     }
 
@@ -38,7 +44,7 @@ public static class AppServiceRegistration
         // add custom services
         services.AddScoped<UsersService>();
         services.AddScoped<RolesService>();
-		services.AddScoped<IAuthValidator, AuthValidator>();
+		services.AddScoped<IAuthValidator, SparkAuthValidator>();
 		services.AddScoped<AuthService>();
 		return services;
     }

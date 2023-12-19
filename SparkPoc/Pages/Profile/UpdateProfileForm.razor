@@ -58,7 +58,7 @@
             }
         );
         HttpContext.SetFlash("success", "Profile info updated.");
-        NavManager.XNavigateTo(HttpContext, "profile/edit");
+        NavManager.XRedirect(HttpContext, "profile/edit");
     }
 
     public class Form

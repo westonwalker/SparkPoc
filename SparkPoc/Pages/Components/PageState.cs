@@ -1,6 +1,6 @@
 ﻿using SparkPoc.Application.Models;
 
-namespace SparkPoc.Pages;
+namespace SparkPoc.Pages.Components;
 
 public class PageState
 {

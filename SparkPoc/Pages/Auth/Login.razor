@@ -14,7 +14,7 @@
 
 	private async Task LoginUser()
 	{
-		var user = await UsersService.FindUserAsync(Form.Email, UsersService.GetSha256Hash(Form.Password));
+		var user = await UsersService.FindUserByCredsAsync(Form.Email, UsersService.GetSha256Hash(Form.Password));
 		if (user == null)
 		{
 			_loginFailedMessage = "Login Failed: Your email or password was incorrect";

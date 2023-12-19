@@ -23,9 +23,9 @@ public class UsersService
         return await _db.Users.FindAsync(userId);
     }
 
-    public async Task<User?> FindUserAsync(string username, string password)
+    public async Task<User?> FindUserByCredsAsync(string email, string password)
     {
-        return await _db.Users.FirstOrDefaultAsync(x => x.Email == username && x.Password == password);
+        return await _db.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
     }
 
     public async Task<User?> FindUserByEmailAsync(string email)

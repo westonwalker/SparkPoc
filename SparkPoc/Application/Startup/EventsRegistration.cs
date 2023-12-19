@@ -5,9 +5,9 @@ using Coravel;
 
 namespace SparkPoc.Application.Startup;
 
-public static class Events
+public static class EventsRegistration
 {
-    public static IServiceProvider RegisterEvents(this IServiceProvider services)
+    public static IServiceProvider SetupEvents(this IServiceProvider services)
     {
         IEventRegistration registration = services.ConfigureEvents();
 

@@ -39,7 +39,7 @@
 		var userCreated = new UserCreated(newUser);
 		await Dispatcher.Broadcast(userCreated);
 
-		var user = await UsersService.FindUserAsync(newUser.Email, newUser.Password);
+		var user = await UsersService.FindUserByCredsAsync(newUser.Email, newUser.Password);
 
 		var cookieExpirationDays = Configuration.GetValue("Spark:Auth:CookieExpirationDays", 5);
 		var cookieClaims = await AuthService.CreateCookieClaims(user);

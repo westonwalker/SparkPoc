@@ -1,16 +1,11 @@
 ﻿using Spark.Library.Environment;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Spark.Library.Config
 {
     public static class ConfigRegistration
     {
-        public static ConfigurationManager SetupSparkConfig(this ConfigurationManager manager)
+        public static ConfigurationManager SetupAppConfig(this ConfigurationManager manager)
         {
             // Load env file into config
             manager.AddEnvironmentVariables();

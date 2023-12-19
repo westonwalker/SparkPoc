@@ -3,9 +3,9 @@ using Coravel;
 
 namespace SparkPoc.Application.Startup;
 
-public static class Scheduler
+public static class ScheduledJobsRegistration
 {
-    public static IServiceProvider RegisterScheduledJobs(this IServiceProvider services)
+    public static IServiceProvider SetupScheduledJobs(this IServiceProvider services)
     {
         services.UseScheduler(scheduler =>
         {

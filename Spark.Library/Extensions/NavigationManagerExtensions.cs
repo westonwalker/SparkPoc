@@ -15,9 +15,16 @@ namespace Spark.Library.Extensions
             return navManager.ToBaseRelativePath(navManager.Uri);
         }
         
-        public static void XNavigateTo(this NavigationManager navManager, HttpContext context, string url)
+        public static void XRedirect(this NavigationManager navManager, HttpContext context, string url, bool forceLoad = false)
         {
-            context.Response.Headers.Append("HX-Location", url);
+            if (forceLoad)
+            {
+                context.Response.Headers.Append("HX-Redirect", url);
+            }
+            else
+            {
+                context.Response.Headers.Append("HX-Location", url);
+            }
         }
     }
 }

@@ -5,11 +5,11 @@ using System.Security.Claims;
 
 namespace SparkPoc.Application.Services.Auth;
 
-public class AuthValidator : IAuthValidator
+public class SparkAuthValidator : IAuthValidator
 {
     private readonly UsersService _usersService;
 
-    public AuthValidator(UsersService usersService)
+    public SparkAuthValidator(UsersService usersService)
     {
         _usersService = usersService;
     }
