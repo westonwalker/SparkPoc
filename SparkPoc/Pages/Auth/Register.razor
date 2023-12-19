@@ -67,15 +67,45 @@
 
 	public class RegisterFormValidator : AbstractValidator<RegisterForm>
 	{
-		public RegisterFormValidator()
+		private readonly IConfiguration _config;
+		
+		public RegisterFormValidator(IConfiguration config)
 		{
+			_config = config;
+			var minPasswordLength = _config.GetValue<int>("Spark:Auth:Password:MinimumLength", 8);
+			var maxPasswordLength = _config.GetValue<int>("Spark:Auth:Password:MaximumLength", 32);
+			var requireDigit = _config.GetValue<bool>("Spark:Auth:Password:RequireDigit", false);
+			var requireUpper = _config.GetValue<bool>("Spark:Auth:Password:RequireUppercase", false);
+			var requireNonAlphanumeric = _config.GetValue<bool>("Spark:Auth:Password:RequireNonAlphanumeric", false);
+			
 			RuleFor(p => p.Name)
 				.NotEmpty().WithMessage("Name is required");
+			
 			RuleFor(p => p.Email)
 				.NotEmpty().WithMessage("Email address is required")
 				.EmailAddress().WithMessage("Please enter a valid email address");
+			
 			RuleFor(p => p.Password)
-				.NotEmpty().WithMessage("Password is required");
+				.NotEmpty().WithMessage("Password is required")
+				.MinimumLength(minPasswordLength).WithMessage($"Password length must be at least {minPasswordLength}.")
+				.MaximumLength(maxPasswordLength).WithMessage($"Password length must not exceed {maxPasswordLength}.");
+
+			if (requireDigit)
+			{
+				RuleFor(p => p.Password)
+					.Matches(@"[0-9]+").WithMessage("Password must contain at least one number.");
+			}
+			if (requireUpper)
+			{
+				RuleFor(p => p.Password)
+					.Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter.");
+			}
+			if (requireNonAlphanumeric)
+			{
+				RuleFor(p => p.Password)
+					.Matches(@"[^a-zA-Z0-9]").WithMessage("Password must contain at least one non-alphanumeric character.");
+			}
+			
 			RuleFor(p => p.ConfirmPassword)
 				.NotEmpty().WithMessage("Confirm password is required")
 				.Equal(model => model.Password).WithMessage("The Password and Confirm Password do not match.");

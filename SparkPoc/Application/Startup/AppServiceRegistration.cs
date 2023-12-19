@@ -3,13 +3,13 @@ using SparkPoc.Application.Events.Listeners;
 using SparkPoc.Application.Models;
 using SparkPoc.Application.Services.Auth;
 using SparkPoc.Application.Jobs;
-using SparkPoc.Application.Services;
 using Spark.Library.Database;
 using Spark.Library.Logging;
 using Coravel;
-using Microsoft.AspNetCore.Components.Authorization;
+using FluentValidation;
 using Spark.Library.Auth;
 using Spark.Library.Mail;
+using SparkPoc.Pages.Auth;
 
 namespace SparkPoc.Application.Startup;
 
@@ -46,6 +46,7 @@ public static class AppServicesRegistration
         services.AddScoped<RolesService>();
 		services.AddScoped<IAuthValidator, SparkAuthValidator>();
 		services.AddScoped<AuthService>();
+        services.AddScoped<IValidator<Register.RegisterForm>, Register.RegisterFormValidator>();
 		return services;
     }
 
