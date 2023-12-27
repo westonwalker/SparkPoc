@@ -1,0 +1,12 @@
+﻿<div class="w-full prose max-w-none">
+	<h1>An unhandled exception occurred while processing the request</h1>
+	<h2>Exception: @Exception.Message</h2>
+	<p>@($"{Exception.TargetSite!.DeclaringType!.FullName}.{Exception.TargetSite.Name}()")</p>
+	<pre>
+	    @Exception.StackTrace
+	</pre>
+</div>
+
+@code {
+	[Parameter] public Exception Exception { get; set; } = default!;
+}

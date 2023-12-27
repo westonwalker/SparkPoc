@@ -18,8 +18,6 @@ public static class AppServicesRegistration
     public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddCustomServices();
-        services.AddRazorPages();
-        services.AddServerSideBlazor();
         services.AddDatabase<DatabaseContext>(config);
         services.AddLogger(config);
         services.AddAuthorization(config, new string[] { ApplicationRoles.Admin, ApplicationRoles.User });

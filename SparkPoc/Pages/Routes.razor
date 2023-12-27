@@ -1,8 +1,26 @@
 ﻿<CascadingValue Value="@PageState">
     <Router AppAssembly="@typeof(Program).Assembly">
         <Found Context="routeData">
-            <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layouts.MainLayout)" />
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layouts.MainLayout)"/>
+            @* <ErrorBoundary> *@
+            @*     <ChildContent> *@
+            @*         <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layouts.MainLayout)"/> *@
+            @*     </ChildContent> *@
+            @*     <ErrorContent Context="Exception"> *@
+            @*             @if (HostEnvironment.IsProduction()) *@
+            @*             { *@
+            @*                 <LayoutView Layout="@typeof(MainLayout)"> *@
+            @*                     <h1>An error occurred while processing your request.</h1> *@
+            @*                 </LayoutView> *@
+            @*             } *@
+            @*             else *@
+            @*             { *@
+            @*                 <LayoutView Layout="@typeof(ExceptionLayout)"> *@
+            @*                     <ExceptionDetails Exception="@Exception" /> *@
+            @*                 </LayoutView> *@
+            @*             } *@
+            @*     </ErrorContent> *@
+            @* </ErrorBoundary> *@
         </Found>
     </Router>
 </CascadingValue>
@@ -15,16 +33,20 @@
 
     private User? User = new();
     private string AppName = "";
+    
+    // [Parameter] public RenderFragment<Exception>? ErrorContent { get; set; }
 
     [Inject]
     public AuthService AuthService { get; set; } = default!;
+
+    [Inject]
+    public IHostEnvironment  HostEnvironment { get; set; } = default!;
 
     [Inject]
     public IConfiguration Config { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
-
         if (Context!.User.Identity!.IsAuthenticated)
         {
             User = await AuthService.GetAuthenticatedUser(Context!.User);

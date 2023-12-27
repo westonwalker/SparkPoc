@@ -1,5 +1,13 @@
 ﻿@page "/dashboard"
 @attribute [Authorize]
+@code {
+    [Inject] public DatabaseContext Db { get; set; } = default!;
+    protected override void OnInitialized()
+    {
+        var user = Db.Users.Find(55);
+        var thing = user.Name;
+    }
+}
 
 <PageTitle>Dashboard</PageTitle>
 
