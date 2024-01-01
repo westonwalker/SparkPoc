@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkPoc", "SparkPoc\SparkPoc.csproj", "{8655E485-64A7-400F-8D91-06651A828D58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkPoc", "SparkPoc\SparkPoc.csproj", "{8655E485-64A7-400F-8D91-06651A828D58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.Library", "Spark.Library\Spark.Library.csproj", "{768CC852-6141-40AE-83B3-1EA292162082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.Library", "Spark.Library\Spark.Library.csproj", "{768CC852-6141-40AE-83B3-1EA292162082}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

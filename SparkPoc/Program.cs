@@ -3,23 +3,29 @@ using Spark.Library.Environment;
 using Spark.Library.Routing;
 using SparkPoc.Application.Startup;
 using SparkPoc.Pages;
+using Tailwind;
+using Vite.AspNetCore.Extensions;
 
 EnvManager.LoadConfig();
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.SetupAppConfig();
+builder.Services.AddViteServices();
 builder.Services.AddAppServices(builder.Configuration);
 
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/error", createScopeForErrors: true);
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
 
-app.UseStatusCodePagesWithRedirects("/status-code/{0}");
+if (app.Environment.IsDevelopment())
+{
+    // Do something only in dev environments
+    app.UseViteDevMiddleware();
+}
+
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

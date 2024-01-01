@@ -1,1 +1,1 @@
-﻿npx tailwindcss -i ./Styles/input.css -o ./wwwroot/output.css --watch
+﻿npx tailwindcss -i ./Assets/input.css -o ./wwwroot/output.css --watch
