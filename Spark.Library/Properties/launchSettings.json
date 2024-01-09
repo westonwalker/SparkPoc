@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Spark.Library": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51907;http://localhost:51908"
+    }
+  }
+}

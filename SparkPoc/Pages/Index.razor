@@ -1,4 +1,10 @@
 ﻿@page "/"
+@code {
+    protected override void OnInitialized()
+    {
+        Log.Information("This is the homepage.");
+    }
+}
 
 <PageTitle>Home</PageTitle>
 
@@ -6,7 +12,7 @@
     <article>
         <div class="card bg-base-100 shadow-xl">
             <div class="card-body space-y-6">
-                <h1 class="text-3xl font-bold text-blue-600">
+                <h1 class="text-3xl font-bold">
                     Build something beautiful
                 </h1>
                 <p>
@@ -15,8 +21,6 @@
                 <p>
                     View the <a class="link" href="https://spark-framework.net" target="_blank">documentation →</a>
                 </p>
-@*                 <a href="/dashboard">Link to page with errors</a>
-                <a href="/test">Link to page that doesn't exist</a> *@
             </div>
         </div>
     </article>

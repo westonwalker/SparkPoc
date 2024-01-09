@@ -4,22 +4,23 @@ using SparkPoc.Application.Models;
 using SparkPoc.Application.Services.Auth;
 using SparkPoc.Application.Jobs;
 using Spark.Library.Database;
-using Spark.Library.Logging;
 using Coravel;
 using FluentValidation;
 using Spark.Library.Auth;
 using Spark.Library.Mail;
 using SparkPoc.Pages.Auth;
+using Vite.AspNetCore.Extensions;
 
 namespace SparkPoc.Application.Startup;
 
 public static class AppServicesRegistration
 {
     public static IServiceCollection AddAppServices(this IServiceCollection services, IConfiguration config)
-    {
-        services.AddCustomServices();
+	{
+		services.AddViteServices();
+		services.AddCustomServices();
         services.AddDatabase<DatabaseContext>(config);
-        services.AddLogger(config);
+        // services.AddLogger(config);
         services.AddAuthorization(config, new string[] { ApplicationRoles.Admin, ApplicationRoles.User });
         services.AddAuthentication<IAuthValidator>(config);
         services.AddJobServices();

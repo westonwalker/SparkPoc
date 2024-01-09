@@ -1,19 +1,11 @@
 ﻿@page "/dashboard"
 @attribute [Authorize]
-@code {
-    [Inject] public DatabaseContext Db { get; set; } = default!;
-    protected override void OnInitialized()
-    {
-        var user = Db.Users.Find(55);
-        var thing = user.Name;
-    }
-}
 
 <PageTitle>Dashboard</PageTitle>
 
 <section>
-    <article class="prose max-w-none">
-        <h1>
+    <article class="space-y-4">
+        <h1 class="text-3xl font-bold">
             Dashboard
         </h1>
         <div class="card bg-base-100 shadow-xl">

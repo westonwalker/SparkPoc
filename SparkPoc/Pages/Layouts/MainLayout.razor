@@ -6,7 +6,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
-@*     <link rel="stylesheet" href="/output.css" /> *@
     <script src="https://unpkg.com/htmx.org@1.9.9"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js"></script>
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -20,38 +19,6 @@
         @Body
     </main>
     <FlashMessages />
-    <script>
-        document.body.addEventListener('htmx:configRequest', function (evt) {
-            evt.detail.headers["accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7";
-        });
-        // document.body.addEventListener("htmx:responseError", function (e) {
-        //     // document.body.parentNode.innerHTML = e.detail.xhr.response;
-        //     history.pushState({}, "", e.detail.xhr.responseURL);
-        // });
-
-        document.addEventListener("htmx:beforeOnLoad", function (event) {
-            const xhr = event.detail.xhr;
-            if (xhr.status == 500) {
-                // Tell htmx to stop processing this response
-                event.stopPropagation();
-                error_modal.showModal();
-                var errorIframe = document.getElementById('dev-error');
-                //errorIframe.setAttribute('src', url);
-                errorIframe.src = "data:text/html;charset=utf-8," + escape(xhr.response);
-            }
-        });
-    </script>
-    <dialog class="modal" id="error_modal">
-        <div class="modal-box max-w-none h-full p-4 overflow-hidden">
-            <iframe id="dev-error" src="" width="100%" height="90%" frameborder="0">
-            </iframe>
-            <div class="modal-action">
-                <form method="dialog" hx-boost="false">
-                    <!-- if there is a button in form, it will close the modal -->
-                    <button class="btn">Close</button>
-                </form>
-            </div>
-        </div>
-    </dialog>
+    <Debug />
 </body>
 </html>

@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<Folder Include="Application\Database\Migrations\" />
 		<Folder Include="Assets\Js\" />
+		<Folder Include="Storage\Logging\" />
 		<Folder Include="wwwroot\build\" />
 	</ItemGroup>
 
@@ -22,7 +23,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Tailwind.Extensions.AspNetCore" Version="1.0.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
 		<PackageReference Include="Vite.AspNetCore" Version="1.11.0" />
 	</ItemGroup>
 
